@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ad Coin Game</title>
+
+<script src="//libtl.com/sdk.js"
+        data-zone="11000404"
+        data-sdk="show_11000404"></script>
+
+<style>
+body{
+    margin:0;
+    font-family:Arial;
+    background:#0f1115;
+    color:white;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    min-height:100vh;
+}
+
+.game{
+    width:100%;
+    max-width:420px;
+    background:#1b1f2a;
+    padding:20px;
+    border-radius:15px;
+    text-align:center;
+    box-shadow:0 10px 30px rgba(0,0,0,0.5);
+}
+
+h2{color:#00e676;}
+
+.coin-box{
+    font-size:28px;
+    margin:10px 0;
+    color:#ffd700;
+}
+
+.level{
+    font-size:14px;
+    color:#aaa;
+}
+
+button{
+    width:100%;
+    padding:15px;
+    margin-top:10px;
+    border:none;
+    border-radius:10px;
+    font-size:16px;
+    font-weight:bold;
+    cursor:pointer;
+}
+
+.btn1{background:#00c853;}
+.btn2{background:#2196f3;}
+.btn3{background:#ff9800;}
+
+.status{
+    margin-top:10px;
+    font-size:13px;
+    color:#aaa;
+}
+</style>
+</head>
+
+<body>
+
+<div class="game">
+    <h2>🎮 Ad Coin Game</h2>
+
+    <div class="coin-box">💰 <span id="coins">0</span></div>
+    <div class="level">Level: <span id="level">1</span></div>
+
+    <button class="btn1" onclick="watchInterstitial()">🎯 Earn Reward Ad</button>
+    <button class="btn2" onclick="watchPopup()">🌐 Visit & Earn</button>
+    <button class="btn3" onclick="boost()">⚡ Boost (Auto Ads)</button>
+
+    <div class="status" id="status">Ready to earn</div>
+</div>
+
+<script>
+let coins = localStorage.getItem("coins") || 0;
+let level = localStorage.getItem("level") || 1;
+
+coins = parseInt(coins);
+level = parseInt(level);
+
+document.getElementById("coins").innerText = coins;
+document.getElementById("level").innerText = level;
+
+function save(){
+    localStorage.setItem("coins", coins);
+    localStorage.setItem("level", level);
+}
+
+function addCoins(amount){
+    coins += amount;
+
+    if(coins >= level * 100){
+        level++;
+        showStatus("🔥 Level Up!");
+    }
+
+    save();
+    updateUI();
+}
+
+function updateUI(){
+    document.getElementById("coins").innerText = coins;
+    document.getElementById("level").innerText = level;
+}
+
+function showStatus(text){
+    document.getElementById("status").innerText = text;
+}
+
+/* ===== INTERSTITIAL ===== */
+function watchInterstitial(){
+
+    if(typeof show_11000404 !== "function"){
+        showStatus("SDK not loaded");
+        return;
+    }
+
+    showStatus("Loading ad...");
+
+    show_11000404()
+    .then(()=>{
+        addCoins(10);
+        showStatus("🎉 Reward earned +10 coins");
+    })
+    .catch(()=>{
+        showStatus("Ad failed");
+    });
+}
+
+/* ===== POPUP ===== */
+function watchPopup(){
+
+    showStatus("Opening offer...");
+
+    show_11000404({
+        type:'pop',
+        ymid:'user1',
+        requestVar:'btn2'
+    })
+    .then(()=>{
+        addCoins(5);
+        showStatus("🌐 Visit rewarded +5 coins");
+    })
+    .catch(()=>{
+        showStatus("Popup failed");
+    });
+}
+
+/* ===== IN-APP AUTO ADS ===== */
+function boost(){
+
+    showStatus("Boost enabled");
+
+    setInterval(()=>{
+
+        if(typeof show_11000404 === "function"){
+            show_11000404({
+                type:'inApp',
+                inAppSettings:{
+                    frequency:1,
+                    interval:60,
+                    timeout:5,
+                    everyPage:false
+                }
+            });
+
+            showStatus("⚡ Passive ad triggered");
+        }
+
+    }, 60000); // every 1 min
+}
+</script>
+
+</body>
+</html>
