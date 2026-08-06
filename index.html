@@ -5,10 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Ad Coin Game</title>
 
-<script src="//libtl.com/sdk.js"
-        data-zone="11000404"
-        data-sdk="show_11000404"></script>
-
+<script src='//libtl.com/sdk.js' data-zone='11513312' data-sdk='show_11513312'></script>
 <style>
 body{
     margin:0;
@@ -121,7 +118,7 @@ function showStatus(text){
 /* ===== INTERSTITIAL ===== */
 function watchInterstitial(){
 
-    if(typeof show_11000404 !== "function"){
+    if(typeof show_11513312 !== "function"){
         showStatus("SDK not loaded");
         return;
     }
@@ -164,7 +161,7 @@ function boost(){
 
     setInterval(()=>{
 
-        if(typeof show_11000404 === "function"){
+        if(typeof show_11513312 === "function"){
             show_11000404({
                 type:'inApp',
                 inAppSettings:{
