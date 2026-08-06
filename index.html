@@ -125,10 +125,10 @@ function watchInterstitial(){
 
     showStatus("Loading ad...");
 
-    show_11000404()
+    show_11513312()
     .then(()=>{
-        addCoins(10);
-        showStatus("🎉 Reward earned +10 coins");
+        addCoins(1);
+        showStatus("🎉 Reward earned +1 coins");
     })
     .catch(()=>{
         showStatus("Ad failed");
@@ -140,7 +140,7 @@ function watchPopup(){
 
     showStatus("Opening offer...");
 
-    show_11000404({
+    show_11513312({
         type:'pop',
         ymid:'user1',
         requestVar:'btn2'
@@ -162,7 +162,7 @@ function boost(){
     setInterval(()=>{
 
         if(typeof show_11513312 === "function"){
-            show_11000404({
+            show_11513312({
                 type:'inApp',
                 inAppSettings:{
                     frequency:1,
