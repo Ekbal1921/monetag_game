@@ -5,8 +5,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Ad Coin Game</title>
 
-<script src='//libtl.com/sdk.js' data-zone='11513312' data-sdk='show_11513312'></script>
-<style>
+<script src='//libtl.com/sdk.js' data-zone='12080120' data-sdk='show_12080120'></script>
+    <style>
 body{
     margin:0;
     font-family:Arial;
@@ -118,14 +118,14 @@ function showStatus(text){
 /* ===== INTERSTITIAL ===== */
 function watchInterstitial(){
 
-    if(typeof show_11513312 !== "function"){
+    if(typeof show_12080120 !== "function"){
         showStatus("SDK not loaded");
         return;
     }
 
     showStatus("Loading ad...");
 
-    show_11513312()
+    show_12080120()
     .then(()=>{
         addCoins(1);
         showStatus("🎉 Reward earned +1 coins");
@@ -140,7 +140,7 @@ function watchPopup(){
 
     showStatus("Opening offer...");
 
-    show_11513312({
+    show_12080120({
         type:'pop',
         ymid:'user1',
         requestVar:'btn2'
@@ -161,8 +161,8 @@ function boost(){
 
     setInterval(()=>{
 
-        if(typeof show_11513312 === "function"){
-            show_11513312({
+        if(typeof show_12080120 === "function"){
+            show_12080120({
                 type:'inApp',
                 inAppSettings:{
                     frequency:1,
